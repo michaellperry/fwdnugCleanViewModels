@@ -27,6 +27,7 @@ namespace TypicalViewModels.Models
 
                 _firstName = value;
                 RaisePropertyChanged(() => FirstName);
+                RaisePropertyChanged(() => Name);
             }
         }
 
@@ -46,6 +47,21 @@ namespace TypicalViewModels.Models
 
                 _lastName = value;
                 RaisePropertyChanged(() => LastName);
+                RaisePropertyChanged(() => Name);
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(FirstName) &&
+                    string.IsNullOrEmpty(LastName))
+                    return "<new person>";
+
+                return String.Format("{0} {1}",
+                    FirstName,
+                    LastName);
             }
         }
     }

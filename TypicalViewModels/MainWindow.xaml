@@ -12,12 +12,12 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid Margin="10">
+    <Grid Margin="10" DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
@@ -46,7 +46,7 @@
             </Grid>
 
         </Grid>
-        <StackPanel DataContext="{Binding Source={StaticResource Locator}, Path=PersonDetail}" VerticalAlignment="Top" Grid.Column="1">
+        <StackPanel DataContext="{Binding Path=SelectedPerson}" VerticalAlignment="Top" Grid.Column="1">
             <TextBlock TextWrapping="Wrap" Text="First Name:" Margin="10,10,10,0" Foreground="#FF8F8F8F"/>
             <TextBox Height="23" TextWrapping="Wrap" Text="{Binding FirstName}" Margin="10"/>
             <TextBlock TextWrapping="Wrap" Text="Last Name:" Margin="10,10,10,0" Foreground="#FF8F8F8F"/>
