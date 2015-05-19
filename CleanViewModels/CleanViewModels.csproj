@@ -34,11 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Assisticant">
+      <HintPath>..\packages\Assisticant.1.1.4.1\lib\net45\Assisticant.dll</HintPath>
+    </Reference>
+    <Reference Include="Assisticant.XAML">
+      <HintPath>..\packages\Assisticant.1.1.4.1\lib\net45\Assisticant.XAML.dll</HintPath>
+    </Reference>
     <Reference Include="Itzben">
       <HintPath>..\packages\itzben.1.1.1\lib\NET45\Itzben.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +64,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\PersonHeader.cs" />
+    <Compile Include="ViewModels\PersonViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,6 +82,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AddressBook.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Selection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
