@@ -17,6 +17,10 @@ namespace TypicalViewModels.ViewModels
             new ObservableCollection<Person>();
         private Person _selectedPerson;
 
+        private RelayCommand _addItemCommand;
+        private RelayCommand _deleteItemCommand;
+        private RelayCommand _moveItemDownCommand;
+        private RelayCommand _moveItemUpCommand;
         public MainViewModel()
         {
             if (ViewModelBase.IsInDesignModeStatic)
@@ -25,6 +29,45 @@ namespace TypicalViewModels.ViewModels
                 LoadDocument();
             if (ViewModelBase.IsInDesignModeStatic)
                 _selectedPerson = _people.First();
+
+            _addItemCommand = new RelayCommand(delegate
+            {
+                var person = new Person();
+                _people.Add(person);
+                SelectedPerson = person;
+            });
+
+            _deleteItemCommand = new RelayCommand(delegate
+            {
+                _people.Remove(_selectedPerson);
+                SelectedPerson = null;
+            }, () =>
+                _selectedPerson != null
+            );
+
+            _moveItemDownCommand = new RelayCommand(delegate
+            {
+                var person = _selectedPerson;
+                int index = _people.IndexOf(person);
+                _people.RemoveAt(index);
+                _people.Insert(index + 1, person);
+                 SelectedPerson = person;
+            }, () =>
+                _selectedPerson != null &&
+                _people.IndexOf(_selectedPerson) < _people.Count - 1
+            );
+
+            _moveItemUpCommand = new RelayCommand(delegate
+            {
+                var person = _selectedPerson;
+                int index = _people.IndexOf(person);
+                _people.RemoveAt(index);
+                _people.Insert(index - 1, person);
+                 SelectedPerson = person;
+           }, () =>
+                _selectedPerson != null &&
+                _people.IndexOf(_selectedPerson) > 0
+            );
         }
 
         public IEnumerable<Person> People
@@ -43,64 +86,31 @@ namespace TypicalViewModels.ViewModels
 
                 _selectedPerson = value;
                 RaisePropertyChanged(() => SelectedPerson);
+
+                _deleteItemCommand.RaiseCanExecuteChanged();
+                _moveItemUpCommand.RaiseCanExecuteChanged();
+                _moveItemDownCommand.RaiseCanExecuteChanged();
             }
         }
 
         public ICommand AddItem
         {
-            get
-            {
-                return new RelayCommand(delegate
-                {
-                    var person = new Person();
-                    _people.Add(person);
-                    SelectedPerson = person;
-                });
-            }
+            get { return _addItemCommand; }
         }
 
         public ICommand DeleteItem
         {
-            get
-            {
-                return new RelayCommand(delegate
-                    {
-                        _people.Remove(_selectedPerson);
-                        SelectedPerson = null;
-                    }, () => _selectedPerson != null );
-            }
+            get { return _deleteItemCommand; }
         }
 
         public ICommand MoveItemDown
         {
-            get
-            {
-                return new RelayCommand(delegate
-                    {
-                        int index = _people.IndexOf(_selectedPerson);
-                        _people.RemoveAt(index);
-                        _people.Insert(index + 1, _selectedPerson);
-                    }, () =>
-                        _selectedPerson != null &&
-                        _people.IndexOf(_selectedPerson) < _people.Count - 1
-                    );
-            }
+            get { return _moveItemDownCommand; }
         }
 
         public ICommand MoveItemUp
         {
-            get
-            {
-                return new RelayCommand(delegate
-                    {
-                        int index = _people.IndexOf(_selectedPerson);
-                        _people.RemoveAt(index);
-                        _people.Insert(index - 1, _selectedPerson);
-                    }, () =>
-                        _selectedPerson != null &&
-                        _people.IndexOf(_selectedPerson) > 0
-                    );
-            }
+            get { return _moveItemUpCommand; }
         }
 
         private void LoadDocument()
