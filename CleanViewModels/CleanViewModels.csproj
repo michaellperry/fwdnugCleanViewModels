@@ -7,7 +7,7 @@
     <ProjectGuid>{89E62D69-DF1E-417C-89EE-E2869BC6E25A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CleanViewModels</RootNamespace>
+    <RootNamespace>TypicalViewModels</RootNamespace>
     <AssemblyName>CleanViewModels</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

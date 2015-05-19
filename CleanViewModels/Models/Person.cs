@@ -18,6 +18,7 @@ namespace CleanViewModels.Models
             get { return _firstName; }
             set { _firstName.Value = value; }
         }
+
         public string LastName
         {
             get { return _lastName; }
